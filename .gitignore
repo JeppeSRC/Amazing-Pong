@@ -6,8 +6,8 @@
 *.lib
 *.suo
 *.opensdf
-*\Debug
-*\Release
+*Debug/
+*Release/
 *.sdf
 *.ilk
 *.pdb
