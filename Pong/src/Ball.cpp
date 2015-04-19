@@ -5,7 +5,7 @@
 Ball::Ball(vec3 pos, vec3 size, vec4 color, Texture* texture) : Renderable(pos, size) {
 	setTexture(texture);
 	setColor(vec4(1, 1, 1, 1));
-	vel = vec3(5.5,5.5);
+	vel = vec3(7.5,5.5);
 	float vertices[] = {
 		0, 0, 0,
 		1, 0, 0,

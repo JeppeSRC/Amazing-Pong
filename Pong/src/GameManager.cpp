@@ -1,5 +1,7 @@
 #include "GameManager.h"
 #include "AudioManager.h"
+#include <stdio.h>
+#include <math.h>
 #include "Window.h"
 
 #define LIGHT_LIFE 80
@@ -27,6 +29,7 @@ void GameManager::update() {
 		if (ball->getPos().x + ball->getSize().x >= pad2->getPos().x && ball->getPos().x + ball->getSize().x <= pad2->getPos().x + pad2->getSize().x)
 			if (ball->getPos().y >= pad2->getPos().y && ball->getPos().y <= pad2->getPos().y + pad2->getSize().y) {
 				ball->getVel().x *= -1;
+				ball->getVel().y += 5 * CalcInterpolation(pad2, ball);
 				hitLight->getPos() = ball->getPos() + ball->getSize() / 2;
 				hitLight->getDamper() = 0.125;
 				lightTime = LIGHT_LIFE;
@@ -36,6 +39,7 @@ void GameManager::update() {
 		if (ball->getPos().x >= pad1->getPos().x && ball->getPos().x <= pad1->getPos().x + pad1->getSize().x)
 			if (ball->getPos().y >= pad1->getPos().y && ball->getPos().y <= pad1->getPos().y + pad1->getSize().y) {
 				ball->getVel().x *= -1;
+				ball->getVel().y += 5 * CalcInterpolation(pad1, ball);
 				hitLight->getPos() = ball->getPos() + ball->getSize() / 2;
 				hitLight->getDamper() = 0.125;
 				lightTime = LIGHT_LIFE;
@@ -61,19 +65,26 @@ void GameManager::update() {
 	}
 
 	if (ball->getPos().x > Window::INSTANCE->getWidth()) {
-		hitLight->getPos() = vec3(500, 300);
-		ball->getVel() = vec3();
-		hitLight->getDamper() = 1;
-		hitLight->getRange() = 100;
+		ball->getVel().x = 10;
+		ball->getVel().y = 0;
+		ball->getPos().x = 500;
+		ball->getPos().y = 300;
 	}
 
 	if (ball->getPos().x < 0) {
-		ball->getVel() = vec3();
-		hitLight->getPos() = vec3(500, 300);
-		hitLight->getDamper() = 1;
-		hitLight->getRange() = 100;
+		ball->getVel().x = -10;
+		ball->getVel().y= 0;
+		ball->getPos().x = 500;
+		ball->getPos().y = 300;
 	}
 
 	hitLight->render();
+}
 
+float GameManager::CalcInterpolation(Pad* pad, Ball* ball) {
+	float value = 0;
+
+	float yOffset = ball->getPos().y - (pad->getPos().y + pad->getSize().y / 2);
+	float ret = tanhf(yOffset / ball->getSize().y / 2);
+	return ret > 10 ? 10 : ret;
 }

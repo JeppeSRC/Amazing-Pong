@@ -16,7 +16,7 @@
 #include "src/AudioManager.h"
 
 
-#define SPEED 2.5
+#define SPEED 4.75
 #define TEX 0
 
 int main() {
