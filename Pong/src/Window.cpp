@@ -163,7 +163,7 @@
 				INSTANCE->width = LOWORD(lparam);
 				INSTANCE->height = HIWORD(lparam);
 				glViewport(0, 0, INSTANCE->width, INSTANCE->height);
-				Shader::active->setMat4("projection", mat4::ortho(0, INSTANCE->getWidth() - 20, INSTANCE->getHeight() - 45, 0, 0.001f, 100));
+				Shader::active->setMat4("projection", mat4::ortho(0, float(INSTANCE->getWidth() - 20), float(INSTANCE->getHeight() - 45), 0, 0.001f, 100));
 			}
 			break;
 		}

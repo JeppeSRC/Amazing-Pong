@@ -13,7 +13,7 @@
 #define CAPSLOCK 20
 #define TAB 9
 #define CTRL 17
-#define DELETE 46
+#define KEY_DELETE 46
 #define WINDOWS_KEY 91
 #define INSERT 45
 

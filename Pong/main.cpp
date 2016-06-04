@@ -21,7 +21,7 @@
 
 int main() {
 
-	Window window(1000, 600, L"TITLE");
+	Window window(1000, 600, L"Amazing");
 	AudioManager::Init();
 
 	glEnable(GL_BLEND);

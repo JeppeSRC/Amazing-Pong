@@ -51,9 +51,9 @@ mat4 mat4::rotate(const vec3& v){
 mat4 mat4::rotate(float x, float y, float z){
 	mat4 rx, ry, rz;
 
-	x *= M_PI / 180;
-	y *= M_PI / 180;
-	z *= M_PI / 180;
+	x *= float(M_PI / 180.0f);
+	y *= float(M_PI / 180.0f);
+	z *= float(M_PI / 180.0f);
 
 	float cosx = cosf(x);
 	float sinx = sinf(x);
@@ -84,7 +84,7 @@ mat4 mat4::projection(float fov, float width, float height, float zNear, float z
 	mat4 r;
 
 	float aspect = (float)width / (float)height;
-	float tanHalf = tan(fov / 2);
+	float tanHalf = tanhf(fov / 2.0f);
 																																		   
 	r.m[0 + 0 * 4] = 1.0f / (aspect * tanHalf);	 r.m[0 + 1 * 4] = 0;			   r.m[0 + 2 * 4] = 0;								   r.m[0 + 3 * 4] = 0;
 	r.m[1 + 0 * 4] = 0;							 r.m[1 + 1 * 4] = 1.0f / tanHalf;  r.m[1 + 2 * 4] = 0;								   r.m[1 + 3 * 4] = 0;

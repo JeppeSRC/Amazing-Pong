@@ -6,13 +6,14 @@
 *.lib
 *.suo
 *.opensdf
-*Debug/
-*Release/
+*bin/
 *.sdf
 *.ilk
 *.pdb
 *.tlog
 *.log
+*.opendb
+*.db
 
 # Precompiled Headers
 *.gch

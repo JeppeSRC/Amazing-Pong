@@ -19,7 +19,7 @@ public:
 		
 
 		
-	inline mat4 operator*(mat4& const r) const {
+	inline mat4 operator*(mat4& r) {
 		mat4 res;
 
 		for (int i = 0; i < 4; i++){
