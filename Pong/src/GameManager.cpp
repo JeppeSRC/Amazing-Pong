@@ -5,7 +5,8 @@
 #include "Window.h"
 
 #define LIGHT_LIFE 80
-#define BALL_SPEED 1.02f;
+#define BALL_SPEED 1.05f;
+#define BALL_INIT_SPEED 0.75f
 
 
 GameManager::GameManager(Pad* pad1, Pad* pad2, Ball* ball) : pad1(pad1), pad2(pad2), ball(ball) {
@@ -30,7 +31,7 @@ void GameManager::update() {
 		if (ball->getPos().x + ball->getSize().x >= pad2->getPos().x && ball->getPos().x + ball->getSize().x <= pad2->getPos().x + pad2->getSize().x)
 			if (ball->getPos().y >= pad2->getPos().y && ball->getPos().y <= pad2->getPos().y + pad2->getSize().y) {
 				ball->getVel().x *= -BALL_SPEED;
-				ball->getVel().y += 5 * CalcInterpolation(pad2, ball);
+				ball->getVel().y += BALL_INIT_SPEED * CalcInterpolation(pad2, ball);
 				hitLight->getPos() = ball->getPos() + ball->getSize() / 2;
 				hitLight->getDamper() = 0.125;
 				lightTime = LIGHT_LIFE;
@@ -40,7 +41,7 @@ void GameManager::update() {
 		if (ball->getPos().x >= pad1->getPos().x && ball->getPos().x <= pad1->getPos().x + pad1->getSize().x)
 			if (ball->getPos().y >= pad1->getPos().y && ball->getPos().y <= pad1->getPos().y + pad1->getSize().y) {
 				ball->getVel().x *= -BALL_SPEED;
-				ball->getVel().y += 5 * CalcInterpolation(pad1, ball);
+				ball->getVel().y += BALL_INIT_SPEED * CalcInterpolation(pad1, ball);
 				hitLight->getPos() = ball->getPos() + ball->getSize() / 2;
 				hitLight->getDamper() = 0.125;
 				lightTime = LIGHT_LIFE;
@@ -50,7 +51,8 @@ void GameManager::update() {
 
 
 	if (ball->getPos().y <= 0) {
-		ball->getVel().y *= -BALL_SPEED;
+		ball->getVel().y *= -1;
+		ball->getPos().y = 0.0f;
 		lightTime = LIGHT_LIFE;
 		hitLight->getDamper() = 0.125;
 		hitLight->getPos() = ball->getPos() + ball->getSize() / 2;
@@ -58,7 +60,8 @@ void GameManager::update() {
 	}
 
 	if (ball->getPos().y + ball->getSize().y >= Window::INSTANCE->getHeight() - 45) {
-		ball->getVel().y *= -BALL_SPEED;
+		ball->getVel().y *= -1;
+		ball->getPos().y = Window::INSTANCE->getHeight() - 45 - ball->getSize().y;
 		lightTime = LIGHT_LIFE;
 		hitLight->getDamper() = 0.125;
 		hitLight->getPos() = ball->getPos() + ball->getSize() / 2;
@@ -66,14 +69,14 @@ void GameManager::update() {
 	}
 
 	if (ball->getPos().x > Window::INSTANCE->getWidth()) {
-		ball->getVel().x = 10;
+		ball->getVel().x = BALL_INIT_SPEED;
 		ball->getVel().y = 0;
 		ball->getPos().x = 500;
 		ball->getPos().y = 300;
 	}
 
 	if (ball->getPos().x < 0) {
-		ball->getVel().x = -10;
+		ball->getVel().x = -BALL_INIT_SPEED;
 		ball->getVel().y= 0;
 		ball->getPos().x = 500;
 		ball->getPos().y = 300;

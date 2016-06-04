@@ -21,7 +21,7 @@ public:
 	Ball(vec3 pos, vec3 size, vec4 color, Texture* texture);
 	~Ball();
 
-	void update() override;
+	void update(float delta) override;
 	void render() override;
 
 	inline vec3& getVel() { return vel; }

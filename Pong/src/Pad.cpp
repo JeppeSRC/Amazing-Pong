@@ -59,7 +59,7 @@ Pad::~Pad() {
 	delete bottom;
 }
 
-void Pad::update() {
+void Pad::update(float delta) {
 
 	//left
 

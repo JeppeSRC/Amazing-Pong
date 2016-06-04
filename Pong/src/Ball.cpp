@@ -93,11 +93,11 @@ void Ball::initLight() {
 	light = new Light(pos + (size / 2.0f), color, 4, 0.5);
 }
 
-void Ball::update() {
+void Ball::update(float delta) {
 
 
 
-	pos += vel;
+	pos += vel * delta;
 	model = mat4::translate(pos) * mat4::scale(size);
 
 	light->getPos() = pos + (size / 2);

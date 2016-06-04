@@ -21,6 +21,6 @@ public:
 	Pad(vec3 pos, vec3 size, vec4 color);
 	~Pad();
 
-	void update() override;
+	void update(float delta) override;
 	void render() override;
 };

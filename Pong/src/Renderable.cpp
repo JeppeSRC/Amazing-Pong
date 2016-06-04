@@ -6,7 +6,7 @@ Renderable::~Renderable() {
 	if (texture) delete texture;
 }
 
-void Renderable::update() {
+void Renderable::update(float delta) {
 
 }
 

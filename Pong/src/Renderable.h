@@ -14,7 +14,7 @@ public:
 	Renderable(const vec3 pos, const vec3 size);
 	virtual ~Renderable();
 
-	virtual void update();
+	virtual void update(float delta);
 	virtual void render();
 
 	inline vec3& getPos() { return pos; }

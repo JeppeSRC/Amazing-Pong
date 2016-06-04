@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <glew.h>
+#include <wglew.h>
 #include <vector>
 #include <ctime>
 #include "src/Shader.h"
@@ -16,13 +17,14 @@
 #include "src/AudioManager.h"
 
 
-#define SPEED 4.75
+#define SPEED 1.25
 #define TEX 0
 
 int main() {
 
 	Window window(1000, 600, L"Amazing");
 	AudioManager::Init();
+	wglSwapIntervalEXT(0);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -49,41 +51,40 @@ int main() {
 	int lastTime = clock();
 	int time = clock();
 	double delta = 0;
-	const double ms = 1000.0 / 60.0;
+	const double ms = 1000.0 / 300.0;
 	int fps = 0;
 
 	while (!window.isClosed()) {
 		long now = clock();
 
-		delta += (now - lastTime) / ms;
+		delta = (now - lastTime); // ms;
 
 		lastTime = now;
 
-		if (delta >= 1) {
-			delta--;
+		if (true) {
 			shader.setInt("totalLights", Light::getTotalLights());
 			x += 0.020f;
 			y += 0.020f;
 
 			if (KEY('S'))
-				pad1.getPos().y += SPEED;
+				pad1.getPos().y += SPEED * delta;
 
 
 			if (KEY('W'))
-				pad1.getPos().y -= SPEED;
+				pad1.getPos().y -= SPEED * delta;
 
 
 			if (KEY(DOWN))
-				pad2.getPos().y += SPEED;
+				pad2.getPos().y += SPEED * delta;
 
 			if (KEY(UP))
-				pad2.getPos().y -= SPEED;
+				pad2.getPos().y -= SPEED * delta;
 	
 			manager.update();
 
-			pad1.update();
-			pad2.update();
-			ball.update();
+			pad1.update(0.0f);
+			pad2.update(0.0f);
+			ball.update(delta);
 		
 		}
 
