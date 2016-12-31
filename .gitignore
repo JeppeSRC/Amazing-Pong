@@ -3,7 +3,6 @@
 *.lo
 *.o
 *.obj
-*.lib
 *.suo
 *.opensdf
 *bin/
